@@ -23,7 +23,7 @@ ylabel('MUT Voltage (V)','FontSize',12);
 Kt = 141.6*KeCalc/1000/(2*pi/60); % Kt = 6.7273 Oz-in/A, matches the spec sheet's +/- 10%
 
 %% Part 3 a) and b)
-% ei -> Rf/Ri - KeW -> 1/ (Ls+R) -> Kt -> 1/(2Js+2B) -> Ktach -> eo
+% ea - KeW -> 1/ (Ls+R) -> Kt -> 1/(2Js+2B) -> W
 
 % To find stall torque, plot torque vs. omega. The region where omega
 % increases but torque remains constant is the stall torque. Spec sheet
