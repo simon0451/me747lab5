@@ -97,5 +97,13 @@ xlabel('Time (s)','FontSize',12);
 ylabel('Voltages (V)','FontSize',12);
 legend('Location','best','Tachometer Output','Tau Point');
 
-% Total voltage change is from 
+% tauTime = JR/(BR + KtKe) with Kt, Ke, R known
+% gain = KtKtach/(BR + KtKe)
+% Total step input amplitude: 16 V
+% Total step response final value: 8 V
+inputGain = Part3_InputV(1);
+stepGain = Part3_TachV(end);
+totalGain = stepGain/inputGain;
+
+Bcalc = 1/R*(Kt*KtachSens/totalGain - Kt*KeCalc);
 %% Part 3 e)
