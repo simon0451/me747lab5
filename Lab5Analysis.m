@@ -104,14 +104,12 @@ legend('Location','best','Tachometer Output','Tau Point');
 % gain = KtKtach/(BR + KtKe)
 % Total step input amplitude: 16 V
 % Total step response final value: 8 V
-inputGain = Part3_b_InputV(1);
+inputGain = Part3_b_InputV(1) - Part3_b_InputV(end);
 stepGain = Part3_b_TachV(end);
 totalGain = stepGain/inputGain;
 
 Bcalc = 1/R*(Kt*KtachSens/totalGain - Kt*KeCalc);
-
-Jcalc = Part3_b_tauTime*(Bcalc*R + Kt*KeCalc)/R; % [Oz-in-s/kRPM]
-Jcalc = Jcalc/1000/(2*pi/60); % [oz-in-s^2/rad]
+Jcalc = Part3_b_tauTime*(Bcalc*R + Kt*KeCalc)/R/1000/(2*pi/60); % [Oz-in-s/kRPM] -> [oz-in-s^2/rad]
 
 % using the B from spec sheet and tau from data
 Jcalc_betterB = Part3_b_tauTime*(2*B*R + Kt*KeCalc)/R/1000/(2*pi/60);
@@ -146,6 +144,7 @@ end
 Part3_e_tauTime = Part3_e_time(Part3_e_tauInd);
 Part3_e_tauVolt = Part3_e_tachV(Part3_e_tauInd);
 Part3_e_SSE = Part3_e_stV - Part3_e_endV;
+Part3_e_SSE_omega = Part3_e_SSE/KtachSens*1000*(2*pi/60);
 
 figure(4);
 hold on;
