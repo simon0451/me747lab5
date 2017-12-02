@@ -113,6 +113,9 @@ Bcalc = 1/R*(Kt*KtachSens/totalGain - Kt*KeCalc);
 Jcalc = Part3_b_tauTime*(Bcalc*R + Kt*KeCalc)/R; % [Oz-in-s/kRPM]
 Jcalc = Jcalc/1000/(2*pi/60); % [oz-in-s^2/rad]
 
+% using the B from spec sheet and tau from data
+Jcalc_betterB = Part3_b_tauTime*(2*B*R + Kt*KeCalc)/R/1000/(2*pi/60);
+
 %% Part 3 e)
 % Import data for disturbance
 Part3_e_data = importdata('Data from Section 3 Step 9.lvm','\t',33);
@@ -129,11 +132,7 @@ for i = 1:length(Part3_e_time)
     end
 end
 
-Part3_e_time = Part3_e_time(500:4000);
-Part3_e_tachV = Part3_e_tachV(500:4000);
-Part3_e_inputV = Part3_e_inputV(500:4000);
-
-Part3_e_stV = mean(Part3_e_tachV(1:300));
+Part3_e_stV = mean(Part3_e_tachV(1:500));
 Part3_e_endV = mean(Part3_e_tachV(3000:end));
 Part3_e_tauV = Part3_e_endV + (Part3_e_stV - Part3_e_endV)*0.368;
 
@@ -146,6 +145,7 @@ end
 
 Part3_e_tauTime = Part3_e_time(Part3_e_tauInd);
 Part3_e_tauVolt = Part3_e_tachV(Part3_e_tauInd);
+Part3_e_SSE = Part3_e_stV - Part3_e_endV;
 
 figure(4);
 hold on;
