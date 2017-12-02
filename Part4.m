@@ -41,7 +41,6 @@ opt=stepDataOptions;
 opt.InputOffset=-4;
 opt.StepAmplitude=8;
 
-
 lvtdata = importdata('Data from Section 4 Step 5 P Controller.lvm','\t',34);
 Peo = lvtdata.data(:,2);
 Ptime=(0:0.000655:0.000655*4998)';
@@ -58,6 +57,7 @@ xlabel('Time')
 ylabel('Voltage (V)')
 legend('Recorded Step Response','Predicted Step Response','location','best')
 hold off
+
 %I
 syms s
 eqn=1+(KGcI*Kv*Ktach)/(tau*s^2+s);
@@ -111,5 +111,37 @@ tauI=1/50;
 tauPI=1/93.0148;
 
 %P
+lvtdata = importdata('Data from Section 4 Step 6 P Controller.lvm','\t',34);
+Pdeo = lvtdata.data(:,2);
+Pdtime=(0:0.000200:0.000200*4998)';
+
+figure(8)
+plot(Pdtime,Pdeo,'r')
+title('Disturbance Load with P Control')
+xlabel('Time')
+ylabel('Voltage (V)')
+errorP=abs((mean(Pdeo(1:997))-mean(Pdeo(1084:end)))/mean(Pdeo(1:997)));
+
 %I
+lvtdata = importdata('Data from Section 4 Step 6 I Controller.lvm','\t',34);
+Ideo = lvtdata.data(:,2);
+Idtime=(0:0.000655:0.000655*4998)';
+
+figure(9)
+plot(Idtime,Ideo,'r')
+title('Disturbance Load with P Control')
+xlabel('Time')
+ylabel('Voltage (V)')
+errorI=abs((mean(Pdeo(1:2522))-mean(Pdeo(2582:4168)))/mean(Pdeo(1:2522)));
+
 %PI
+lvtdata = importdata('Data from Section 4 Step 6 PI Controller.lvm','\t',34);
+PIdeo = lvtdata.data(:,2);
+PIdtime=(0:0.000655:0.000655*4998)';
+
+figure(10)
+plot(PIdtime,PIdeo,'r')
+title('Disturbance Load with PI Control')
+xlabel('Time')
+ylabel('Voltage (V)')
+errorPI=abs((mean(PIdeo(1:1006))-mean(PIdeo(1039:1416)))/mean(PIdeo(1:1006)));
