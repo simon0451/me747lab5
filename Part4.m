@@ -30,7 +30,7 @@ sysPI=tf([Kadj*Rf*C2*Kv*Ktach Kadj*Kv*Ktach],[Ri*C2*tau Ri*C2 0]);
 
 figure(4)
 rlocus(sysPI)
-title('Root Locus for PI Control')
+title('Root Locus with PI Control')
 %% 4c
 %P
 sP = (1/tau)+KGcP*Ktach*(Kv/tau);
